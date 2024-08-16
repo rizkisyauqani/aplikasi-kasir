@@ -91,8 +91,7 @@ while ($d = mysqli_fetch_array($data)) {
         </tr>
     <?php
     } 
-} 
-else {
+} else {
     $no = 1;
 $data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari' and kasir_nama = '$ksr'");
 while ($d = mysqli_fetch_array($data)) {
