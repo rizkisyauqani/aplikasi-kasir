@@ -97,6 +97,16 @@ $noInvoice = $char . sprintf("%02s", $noUrut);
 
               </div>
 
+              <div class="col-lg-3">
+
+                <div class="form-group">
+                  <label>Waktu Transaksi</label>
+                  <input type="text" class="form-control" required="required" name="waktu" value="<?php echo date("H:i:s");
+                  ?>" placeholder="waktu" id="waktu">
+                </div>
+
+              </div>
+
             </div>
 
             <hr>

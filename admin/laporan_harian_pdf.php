@@ -65,14 +65,15 @@ $pdf->SetFillColor(168, 245, 86);
 $pdf->Cell(11, 7, 'NO', 1, 0, 'C', true);
 $pdf->Cell(25, 7, 'NO INVOICE', 1, 0, 'C', true);
 $pdf->Cell(22, 7, 'TANGGAL', 1, 0, 'C', true);
+$pdf->Cell(18, 7, 'JAM', 1, 0, 'C', true);
 $pdf->Cell(15, 7, 'SHIF', 1, 0, 'C', true);
 $pdf->Cell(30, 7, 'KASIR', 1, 0, 'C', true);
-$pdf->Cell(40, 7, 'NAMA PRODUK', 1, 0, 'C', true);
+$pdf->Cell(55, 7, 'NAMA PRODUK', 1, 0, 'C', true);
 $pdf->Cell(30, 7, 'KATEGORI', 1, 0, 'C', true);
-$pdf->Cell(35, 7, 'JUMLAH TERJUAL', 1, 0, 'C', true);
-$pdf->Cell(20, 7, 'TOTAL', 1, 0, 'C', true);
-$pdf->Cell(20, 7, 'MODAL', 1, 0, 'C', true);
-$pdf->Cell(20, 7, 'LABA', 1, 0, 'C', true);
+$pdf->Cell(18, 7, 'JUMLAH', 1, 0, 'C', true);
+$pdf->Cell(18, 7, 'TOTAL', 1, 0, 'C', true);
+$pdf->Cell(18, 7, 'MODAL', 1, 0, 'C', true);
+$pdf->Cell(18, 7, 'LABA', 1, 0, 'C', true);
 
 $pdf->Cell(10, 7, '', 0, 1);
 $pdf->SetFont('Arial', '', 10);
@@ -80,42 +81,42 @@ $pdf->SetFont('Arial', '', 10);
 if ($ksr == 'Belum Pilih Kasir') {
 
 $no = 1;
-$data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari'");
+$data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_waktu,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari'");
 while ($d = mysqli_fetch_array($data)) {
+        $pdf->Cell(11, 6, $no++, 1, 0, 'C');
+        $pdf->Cell(25, 6, $d['invoice_nomor'], 1, 0, 'C');
+        $pdf->Cell(22, 6, $d['invoice_tanggal'], 1, 0, 'C');
+        $pdf->Cell(18, 6, $d['invoice_waktu'], 1, 0, 'C');
+        $pdf->Cell(15, 6, $d['invoice_pelanggan'], 1, 0, 'C');
+        $pdf->Cell(30, 6, $d['kasir_nama'], 1, 0, 'C');
+        $pdf->Cell(55, 6, $d['produk_nama'], 1, 0, 'L');
+        $pdf->Cell(30, 6, $d['kategori'], 1, 0, 'C');
+        $pdf->Cell(18, 6, $d['transaksi_jumlah'], 1, 0, 'C');
+        $pdf->Cell(18, 6, number_format($d['transaksi_jumlah'] * $d['produk_harga_jual']), 1, 0, 'R');
+        $pdf->Cell(18, 6, number_format($d['transaksi_jumlah'] * $d['produk_harga_modal']), 1, 0, 'R');
+        $pdf->Cell(18, 6, number_format($d['transaksi_jumlah'] * $d['produk_harga_jual'] - $d['transaksi_jumlah'] * $d['produk_harga_modal']), 1, 0, 'R');
 
-    $pdf->Cell(11, 6, $no++, 1, 0, 'C');
-    $pdf->Cell(25, 6, $d['invoice_nomor'], 1, 0, 'C');
-    $pdf->Cell(22, 6, $d['invoice_tanggal'], 1, 0, 'C');
-    $pdf->Cell(15, 6, $d['invoice_pelanggan'], 1, 0, 'C');
-    $pdf->Cell(30, 6, $d['kasir_nama'], 1, 0, 'C');
-    $pdf->Cell(40, 6, $d['produk_nama'], 1, 0, 'L');
-    $pdf->Cell(30, 6, $d['kategori'], 1, 0, 'C');
-    $pdf->Cell(35, 6, $d['transaksi_jumlah'], 1, 0, 'C');
-    $pdf->Cell(20, 6, number_format($d['transaksi_jumlah'] * $d['produk_harga_jual']), 1, 0, 'R');
-    $pdf->Cell(20, 6, number_format($d['transaksi_jumlah'] * $d['produk_harga_modal']), 1, 0, 'R');
-    $pdf->Cell(20, 6, number_format($d['transaksi_jumlah'] * $d['produk_harga_jual'] - $d['transaksi_jumlah'] * $d['produk_harga_modal']), 1, 0, 'R');
-
-    $pdf->Cell(10, 6, '', 0, 1);
+        $pdf->Cell(10, 6, '', 0, 1);
     }
 } else {
     $no = 1;
-    $data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari' and kasir_nama = '$ksr'");
+    $data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_waktu,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari' and kasir_nama = '$ksr'");
     while ($d = mysqli_fetch_array($data)) {
+        $pdf->Cell(11, 6, $no++, 1, 0, 'C');
+        $pdf->Cell(25, 6, $d['invoice_nomor'], 1, 0, 'C');
+        $pdf->Cell(22, 6, $d['invoice_tanggal'], 1, 0, 'C');
+        $pdf->Cell(18, 6, $d['invoice_waktu'], 1, 0, 'C');
+        $pdf->Cell(15, 6, $d['invoice_pelanggan'], 1, 0, 'C');
+        $pdf->Cell(30, 6, $d['kasir_nama'], 1, 0, 'C');
+        $pdf->Cell(55, 6, $d['produk_nama'], 1, 0, 'L');
+        $pdf->Cell(30, 6, $d['kategori'], 1, 0, 'C');
+        $pdf->Cell(18, 6, $d['transaksi_jumlah'], 1, 0, 'C');
+        $pdf->Cell(18, 6, number_format($d['transaksi_jumlah'] * $d['produk_harga_jual']), 1, 0, 'R');
+        $pdf->Cell(18, 6, number_format($d['transaksi_jumlah'] * $d['produk_harga_modal']), 1, 0, 'R');
+        $pdf->Cell(18, 6, number_format($d['transaksi_jumlah'] * $d['produk_harga_jual'] - $d['transaksi_jumlah'] * $d['produk_harga_modal']), 1, 0, 'R');
 
-    $pdf->Cell(11, 6, $no++, 1, 0, 'C');
-    $pdf->Cell(25, 6, $d['invoice_nomor'], 1, 0, 'C');
-    $pdf->Cell(22, 6, $d['invoice_tanggal'], 1, 0, 'C');
-    $pdf->Cell(15, 6, $d['invoice_pelanggan'], 1, 0, 'C');
-    $pdf->Cell(30, 6, $d['kasir_nama'], 1, 0, 'C');
-    $pdf->Cell(40, 6, $d['produk_nama'], 1, 0, 'L');
-    $pdf->Cell(30, 6, $d['kategori'], 1, 0, 'C');
-    $pdf->Cell(35, 6, $d['transaksi_jumlah'], 1, 0, 'C');
-    $pdf->Cell(20, 6, number_format($d['transaksi_jumlah'] * $d['produk_harga_jual']), 1, 0, 'R');
-    $pdf->Cell(20, 6, number_format($d['transaksi_jumlah'] * $d['produk_harga_modal']), 1, 0, 'R');
-    $pdf->Cell(20, 6, number_format($d['transaksi_jumlah'] * $d['produk_harga_jual'] - $d['transaksi_jumlah'] * $d['produk_harga_modal']), 1, 0, 'R');
-
-    $pdf->Cell(10, 6, '', 0, 1);
-}
+        $pdf->Cell(10, 6, '', 0, 1);
+    }
 }
 
 $pdf->Output();

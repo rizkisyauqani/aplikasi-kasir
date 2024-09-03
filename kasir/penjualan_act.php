@@ -3,13 +3,14 @@ include '../koneksi.php';
 session_start();
 $nomor = $_POST['nomor'];
 $tanggal = $_POST['tanggal'];
+$waktu = $_POST['waktu'];
 $pelanggan = $_POST['pelanggan'];
 $kasir = $_SESSION['id'];
 $sub_total = $_POST['sub_total'];
 $diskon = $_POST['diskon'];
 $total = $_POST['total'];
 
-mysqli_query($koneksi, "insert into invoice values(NULL,'$nomor','$tanggal','$pelanggan','$kasir','$sub_total','$diskon','$total')") or die(mysqli_errno($koneksi));
+mysqli_query($koneksi, "insert into invoice values(NULL,'$nomor','$tanggal','$waktu','$pelanggan','$kasir','$sub_total','$diskon','$total')") or die(mysqli_errno($koneksi));
 
 $id_invoice = mysqli_insert_id($koneksi);
 

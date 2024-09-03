@@ -44,6 +44,7 @@ $year_dari = date('Y', strtotime($tgl_dari));
                                 <th>No</th>
                                 <th>No.Invoice</th>
                                 <th >Tanggal</th>
+                                <th >Jam</th>
                       <th >Shif</th>
                       <th >Kasir</th>
                       <th >Nama Produk</th>
@@ -63,7 +64,7 @@ if(isset($_GET['kasir'])) {
     if ($ksr == 'Belum Pilih Kasir') {
 
 $no = 1;
-$data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari'");
+$data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_waktu,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari'");
 while ($d = mysqli_fetch_array($data)) {
     ?>
         <tr>
@@ -71,6 +72,8 @@ while ($d = mysqli_fetch_array($data)) {
             <td ><?php echo $d['invoice_nomor'];
             ?></td>
             <td><?php echo date('d-m-Y', strtotime($d['invoice_tanggal']));
+            ?></td>
+            <td><?php echo $d['invoice_waktu'];
             ?></td>
             <td ><?php echo $d['invoice_pelanggan'];
             ?></td>
@@ -93,35 +96,37 @@ while ($d = mysqli_fetch_array($data)) {
     } 
 } else {
     $no = 1;
-$data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari' and kasir_nama = '$ksr'");
-while ($d = mysqli_fetch_array($data)) {
-    ?>
-        <tr>
-            <td><?php echo $no++; ?></td>
-            <td ><?php echo $d['invoice_nomor'];
-    ?></td>
-            <td><?php echo date('d-m-Y', strtotime($d['invoice_tanggal']));
-    ?></td>
-            <td ><?php echo $d['invoice_pelanggan'];
-    ?></td>
-            <td><?php echo $d['kasir_nama'];
-    ?></td>
-            <td><?php echo $d['produk_nama'];
-    ?></td>
-            <td><?php echo $d['kategori'];
-    ?></td>
-            <td><?php echo $d['transaksi_jumlah'];
-    ?></td>
-            <td><?php echo number_format($d['produk_harga_jual'] * $d['transaksi_jumlah']);
-    ?></td>
-            <td><?php echo number_format($d['produk_harga_modal'] * $d['transaksi_jumlah']);
-    ?></td>
-            <td><?php echo number_format($d['produk_harga_jual'] * $d['transaksi_jumlah'] - $d['produk_harga_modal'] * $d['transaksi_jumlah']);
-    ?></td>
-        </tr>
-    <?php
-}
-}
+    $data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_waktu,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari' and kasir_nama = '$ksr'");
+    while ($d = mysqli_fetch_array($data)) {
+            ?>
+                <tr>
+                    <td><?php echo $no++; ?></td>
+                    <td ><?php echo $d['invoice_nomor'];
+            ?></td>
+                    <td><?php echo date('d-m-Y', strtotime($d['invoice_tanggal']));
+            ?></td>
+                    <td><?php echo $d['invoice_waktu'];
+            ?></td>
+                    <td ><?php echo $d['invoice_pelanggan'];
+            ?></td>
+                    <td><?php echo $d['kasir_nama'];
+            ?></td>
+                    <td><?php echo $d['produk_nama'];
+            ?></td>
+                    <td><?php echo $d['kategori'];
+            ?></td>
+                    <td><?php echo $d['transaksi_jumlah'];
+            ?></td>
+                    <td><?php echo number_format($d['produk_harga_jual'] * $d['transaksi_jumlah']);
+            ?></td>
+                    <td><?php echo number_format($d['produk_harga_modal'] * $d['transaksi_jumlah']);
+            ?></td>
+                    <td><?php echo number_format($d['produk_harga_jual'] * $d['transaksi_jumlah'] - $d['produk_harga_modal'] * $d['transaksi_jumlah']);
+            ?></td>
+                </tr>
+            <?php
+        }
+    }
 }?>
                         </tbody>
                     </table>

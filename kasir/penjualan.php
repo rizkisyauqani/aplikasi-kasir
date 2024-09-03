@@ -52,6 +52,7 @@
                     <th width="1%">NO</th>
                     <th width="10%" class="text-center">NOMOR</th>
                     <th class="text-center">TANGGAL</th>
+                    <th class="text-center">JAM</th>
                     <th class="text-center">SHIF</th>
                     <th class="text-center">KASIR</th>
                     <th class="text-center">SUB TOTAL</th>
@@ -71,6 +72,7 @@
                       <td class="text-center"><?php echo $no++; ?></td>
                       <td class="text-center"><?php echo $d['invoice_nomor']; ?></td>
                       <td class="text-center"><?php echo date('d-m-Y', strtotime($d['invoice_tanggal'])); ?></td>
+                      <td class="text-center"><?php echo $d['invoice_waktu']; ?></td>
                       <td class="text-center"><?php echo $d['invoice_pelanggan']; ?></td>
                       <td class="text-center"><?php echo $d['kasir_nama']; ?></td>
                       <td class="text-center"><?php echo "Rp.".number_format($d['invoice_sub_total']).",-"; ?></td>

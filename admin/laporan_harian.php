@@ -192,6 +192,7 @@ function tgl_indo($tanggal)
                       <th width="1%">No</th>
                       <th width="10%" class="text-center">No.Invoice</th>
                       <th class="text-center">Tanggal</th>
+                      <th class="text-center">Jam</th>
                       <th class="text-center">Shif</th>
                       <th class="text-center">Kasir</th>
                       <th class="text-center">Nama Produk</th>
@@ -205,13 +206,14 @@ function tgl_indo($tanggal)
                   <tbody>
                     <?php
 $no = 1;
-    $data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari'");
+    $data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_waktu,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari'");
     while ($d = mysqli_fetch_array($data)) {
         ?>
                       <tr>
                         <td class="text-center"><?php echo $no++; ?></td>
                         <td class="text-center"><?php echo $d['invoice_nomor']; ?></td>
                         <td class="text-center"><?php echo date('d-m-Y', strtotime($d['invoice_tanggal'])); ?></td>
+                        <td class="text-center"><?php echo $d['invoice_waktu']; ?></td>
                         <td class="text-center"><?php echo $d['invoice_pelanggan']; ?></td>
                         <td class="text-center"><?php echo $d['kasir_nama']; ?></td>
                         <td class="text-left"><?php echo $d['produk_nama']; ?></td>
@@ -241,6 +243,7 @@ $no = 1;
                       <th width="1%">No</th>
                       <th width="10%" class="text-center">No.Invoice</th>
                       <th class="text-center">Tanggal</th>
+                      <th class="text-center">Jam</th>
                       <th class="text-center">Shif</th>
                       <th class="text-center">Kasir</th>
                       <th class="text-center">Nama Produk</th>
@@ -254,13 +257,14 @@ $no = 1;
                   <tbody>
                   <?php
 $no = 1;
-    $data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari' and kasir_nama = '$kasir'");
+    $data = mysqli_query($koneksi, "SELECT invoice_nomor,invoice_tanggal,invoice_waktu,invoice_pelanggan,kasir_nama,produk_nama,kategori,transaksi_jumlah,produk_harga_jual,produk_harga_modal from invoice,kasir,produk,kategori,transaksi where invoice_id=transaksi_invoice and transaksi_produk=produk_id and produk_kategori=kategori_id and invoice_kasir=kasir_id and date(invoice_tanggal) = '$tgl_dari' and kasir_nama = '$kasir'");
     while ($d = mysqli_fetch_array($data)) {
         ?>
                       <tr>
                         <td class="text-center"><?php echo $no++; ?></td>
                         <td class="text-center"><?php echo $d['invoice_nomor']; ?></td>
                         <td class="text-center"><?php echo date('d-m-Y', strtotime($d['invoice_tanggal'])); ?></td>
+                        <td class="text-center"><?php echo $d['invoice_waktu']; ?></td>
                         <td class="text-center"><?php echo $d['invoice_pelanggan']; ?></td>
                         <td class="text-center"><?php echo $d['kasir_nama']; ?></td>
                         <td class="text-left"><?php echo $d['produk_nama']; ?></td>

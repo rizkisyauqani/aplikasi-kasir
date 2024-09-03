@@ -63,6 +63,7 @@
                 <th width="1%">No</th>
                 <th width="10%" class="text-center">No. Invoice</th>
                 <th class="text-center">Tanggal</th>
+                <th class="text-center">Jam</th>
                 <th class="text-center">Shift</th>
                 <th class="text-center">Kasir</th>
                 <th class="text-center">Nama Produk</th>
@@ -76,7 +77,7 @@
         <tbody>
             <?php
             $no = 1;
-            $query = "SELECT invoice_nomor, invoice_tanggal, invoice_pelanggan, kasir_nama, produk_nama, kategori, transaksi_jumlah, produk_harga_jual, produk_harga_modal 
+            $query = "SELECT invoice_nomor, invoice_tanggal, invoice_waktu, invoice_pelanggan, kasir_nama, produk_nama, kategori, transaksi_jumlah, produk_harga_jual, produk_harga_modal 
                       FROM invoice 
                       JOIN kasir ON invoice_kasir = kasir_id 
                       JOIN transaksi ON invoice_id = transaksi_invoice 
@@ -95,6 +96,7 @@
                     <td class="text-center"><?php echo $no++; ?></td>
                     <td class="text-center"><?php echo $d['invoice_nomor']; ?></td>
                     <td class="text-center"><?php echo date('d-m-Y', strtotime($d['invoice_tanggal'])); ?></td>
+                    <td class="text-center"><?php echo $d['invoice_waktu']; ?></td>
                     <td class="text-center"><?php echo $d['invoice_pelanggan']; ?></td>
                     <td class="text-center"><?php echo $d['kasir_nama']; ?></td>
                     <td class="text-left"><?php echo $d['produk_nama']; ?></td>
