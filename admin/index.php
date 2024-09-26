@@ -144,7 +144,11 @@
             $penjualan = mysqli_query($koneksi,"SELECT sum(invoice_total) as total_invoice FROM invoice WHERE invoice_tanggal='$tanggal'");
             $p = mysqli_fetch_assoc($penjualan);
             ?>
-            <h4 style="font-weight: bolder"><?php echo "Rp. ".number_format($p['total_invoice'])." ,-" ?></h4>
+            <?php if ($p['total_invoice'] != null) {?>
+              <h4 style="font-weight: bolder"><?php echo "Rp. ".number_format($p['total_invoice'])." ,-" ?></h4>
+            <?php } else { ?>
+            <h4 style="font-weight: bolder"><?php echo "Rp. 0 ,-" ?></h4>
+            <?php } ?>  
             <p>Penjualan Hari Ini</p>
           </div>
           <div class="icon">

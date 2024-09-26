@@ -70,11 +70,19 @@
               <div style="margin-top: 19px;">
                 <div class="col-md-1 bg-success" style="margin-left: 15px;">
                     <p style="margin: 0; text-align: center;">Total Penjualan</p>
-                    <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format($p['total_penjualan']) ?></p>
+                    <?php if ($p['total_penjualan'] != null) {?>
+                      <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format($p['total_penjualan']) ?></p>
+                    <?php } else {?>
+                      <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format(0) ?></p>
+                    <?php }?>
                 </div>
                 <div class="col-md-1 bg-success">
                   <p style="margin: 0; text-align: center;">Modal</p>
-                  <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format($p['modal']) ?></p>
+                  <?php if ($p['modal'] != null) {?>
+                      <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format($p['modal']) ?></p>
+                    <?php } else {?>
+                      <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format(0) ?></p>
+                    <?php }?>
                 </div>
                 <div class="col-md-1 bg-success">
                   <p style="margin: 0; text-align: center;">Laba</p>
@@ -82,7 +90,11 @@
                 </div>
                 <div class="col-md-1 bg-success">
                   <p style="margin: 0; text-align: center;">Produk Terjual</p>
-                  <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format($p['transaksi_jumlah'])?></p>
+                  <?php if ($p['transaksi_jumlah'] != null) {?>
+                      <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format($p['transaksi_jumlah']) ?></p>
+                    <?php } else {?>
+                      <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format(0) ?></p>
+                    <?php }?>
                 </div>
               </div>
             <?php }
@@ -90,13 +102,21 @@
             $penjualan_by_kasir = mysqli_query($koneksi, "SELECT invoice_tanggal, kasir_nama, SUM(transaksi_jumlah * produk_harga_jual) AS total_penjualan, SUM(transaksi_jumlah * produk_harga_modal) AS modal, SUM(transaksi_jumlah) AS transaksi_jumlah FROM invoice, kasir, produk, transaksi WHERE invoice_id = transaksi_invoice AND transaksi_produk=produk_id AND invoice_kasir=kasir_id AND date(invoice_tanggal) = '$tanggal_dari' AND kasir_nama = '$kasir'");
               while ($p = mysqli_fetch_array($penjualan_by_kasir)) { ?>
               <div style="margin-top: 19px;">
-                <div class="col-md-1 bg-success" style="margin-left: 17px;">
+                <div class="col-md-1 bg-success" style="margin-left: 15px;">
                     <p style="margin: 0; text-align: center;">Total Penjualan</p>
-                    <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format($p['total_penjualan']) ?></p>
+                    <?php if ($p['total_penjualan'] != null) {?>
+                      <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format($p['total_penjualan']) ?></p>
+                    <?php } else {?>
+                      <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format(0) ?></p>
+                    <?php }?>
                 </div>
                 <div class="col-md-1 bg-success">
                   <p style="margin: 0; text-align: center;">Modal</p>
-                  <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format($p['modal']) ?></p>
+                  <?php if ($p['modal'] != null) {?>
+                      <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format($p['modal']) ?></p>
+                    <?php } else {?>
+                      <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format(0) ?></p>
+                    <?php }?>
                 </div>
                 <div class="col-md-1 bg-success">
                   <p style="margin: 0; text-align: center;">Laba</p>
@@ -104,7 +124,11 @@
                 </div>
                 <div class="col-md-1 bg-success">
                   <p style="margin: 0; text-align: center;">Produk Terjual</p>
-                  <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format($p['transaksi_jumlah'])?></p>
+                  <?php if ($p['transaksi_jumlah'] != null) {?>
+                      <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format($p['transaksi_jumlah']) ?></p>
+                    <?php } else {?>
+                      <p style="margin: 0; text-align: center; font-size: 1.6rem; font-weight: 700;"><?php echo number_format(0) ?></p>
+                    <?php }?>
                 </div>
               </div>
             <?php }}}} ?>
