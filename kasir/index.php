@@ -25,7 +25,11 @@
             $penjualan = mysqli_query($koneksi,"SELECT sum(invoice_total) as total_invoice FROM invoice WHERE invoice_tanggal='$tanggal'");
             $p = mysqli_fetch_assoc($penjualan);
             ?>
-            <h4 style="font-weight: bolder"><?php echo "Rp. ".number_format($p['total_invoice'])." ,-" ?></h4>
+            <?php if ($p['total_invoice'] != null) {?>
+              <h4 style="font-weight: bolder"><?php echo "Rp. " . number_format($p['total_invoice']) . " ,-" ?></h4>
+            <?php } else {?>
+            <h4 style="font-weight: bolder"><?php echo "Rp. 0 ,-" ?></h4>
+            <?php }?>
             <p>Penjualan Hari Ini</p>
           </div>
           <div class="icon">
@@ -42,7 +46,11 @@
             $penjualan = mysqli_query($koneksi,"SELECT sum(invoice_total) as total FROM invoice WHERE month(invoice_tanggal)='$bulan'");
             $p = mysqli_fetch_assoc($penjualan);
             ?>
-            <h4 style="font-weight: bolder"><?php echo "Rp. ".number_format($p['total'])." ,-" ?></h4>
+            <?php if ($p['total'] != null) {?>
+              <h4 style="font-weight: bolder"><?php echo "Rp. " . number_format($p['total']) . " ,-" ?></h4>
+            <?php } else {?>
+            <h4 style="font-weight: bolder"><?php echo "Rp. 0 ,-" ?></h4>
+            <?php }?>
             <p>Penjualan Bulan Ini</p>
           </div>
           <div class="icon">
@@ -59,7 +67,11 @@
             $penjualan = mysqli_query($koneksi,"SELECT sum(invoice_total) as total FROM invoice WHERE year(invoice_tanggal)='$tahun'");
             $p = mysqli_fetch_assoc($penjualan);
             ?>
-            <h4 style="font-weight: bolder"><?php echo "Rp. ".number_format($p['total'])." ,-" ?></h4>
+            <?php if ($p['total'] != null) {?>
+              <h4 style="font-weight: bolder"><?php echo "Rp. " . number_format($p['total']) . " ,-" ?></h4>
+            <?php } else {?>
+            <h4 style="font-weight: bolder"><?php echo "Rp. 0 ,-" ?></h4>
+            <?php }?>
             <p>Penjualan Tahun Ini</p>
           </div>
           <div class="icon">
@@ -75,7 +87,11 @@
             $penjualan = mysqli_query($koneksi,"SELECT sum(invoice_total) as total FROM invoice");
             $p = mysqli_fetch_assoc($penjualan);
             ?>
-            <h4 style="font-weight: bolder"><?php echo "Rp. ".number_format($p['total'])." ,-" ?></h4>
+            <?php if ($p['total'] != null) {?>
+              <h4 style="font-weight: bolder"><?php echo "Rp. " . number_format($p['total']) . " ,-" ?></h4>
+            <?php } else {?>
+            <h4 style="font-weight: bolder"><?php echo "Rp. 0 ,-" ?></h4>
+            <?php }?>
             <p>Total Seluruh Penjualan</p>
           </div>
           <div class="icon">
@@ -105,7 +121,11 @@
             $laba = $total_penjualan-$total_modal;
             ?>
 
-            <h4 style="font-weight: bolder"><?php echo "Rp.".number_format($laba).",-" ?></h4>
+            <?php if ($laba != null) {?>
+              <h4 style="font-weight: bolder"><?php echo "Rp. " . number_format($laba) . " ,-" ?></h4>
+            <?php } else {?>
+            <h4 style="font-weight: bolder"><?php echo "Rp. 0 ,-" ?></h4>
+            <?php }?>
             <p>Laba Hari Ini</p>
           </div>
           <div class="icon">
@@ -134,7 +154,11 @@
             $laba = $total_penjualan-$total_modal;
             ?>
 
-            <h4 style="font-weight: bolder"><?php echo "Rp.".number_format($laba).",-" ?></h4>
+            <?php if ($laba != null) {?>
+              <h4 style="font-weight: bolder"><?php echo "Rp. " . number_format($laba) . " ,-" ?></h4>
+            <?php } else {?>
+            <h4 style="font-weight: bolder"><?php echo "Rp. 0 ,-" ?></h4>
+            <?php }?>
             <p>Laba Bulan Ini</p>
           </div>
           <div class="icon">
@@ -164,7 +188,11 @@
             $laba = $total_penjualan-$total_modal;
             ?>
 
-            <h4 style="font-weight: bolder"><?php echo "Rp.".number_format($laba).",-" ?></h4>
+            <?php if ($laba != null) {?>
+              <h4 style="font-weight: bolder"><?php echo "Rp. " . number_format($laba) . " ,-" ?></h4>
+            <?php } else {?>
+            <h4 style="font-weight: bolder"><?php echo "Rp. 0 ,-" ?></h4>
+            <?php }?>
             <p>Laba Tahun Ini</p>
           </div>
           <div class="icon">
@@ -195,7 +223,12 @@
 
             $laba = $total_penjualan-$total_modal;
             ?>
-            <h4 style="font-weight: bolder"><?php echo "Rp.".number_format($laba).",-" ?></h4>
+            
+            <?php if ($laba != null) {?>
+              <h4 style="font-weight: bolder"><?php echo "Rp. " . number_format($laba) . " ,-" ?></h4>
+            <?php } else {?>
+            <h4 style="font-weight: bolder"><?php echo "Rp. 0 ,-" ?></h4>
+            <?php }?>
             <p>Total Seluruh Laba</p>
           </div>
           <div class="icon">
